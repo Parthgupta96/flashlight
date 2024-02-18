@@ -112,8 +112,11 @@ private fun RootComposeView() {
                             Icon(Icons.Rounded.Share, contentDescription = null)
                         }
                         IconButton(
+
                             //TODO handle this
-                            onClick = { Timber.d("buttonClicked") }
+                            onClick = {
+                                Timber.d("buttonClicked")
+                            }
                         ) {
                             Icon(Icons.Rounded.Settings, contentDescription = null)
                         }
@@ -200,6 +203,9 @@ fun MainContainer(modifier: Modifier = Modifier) {
 
 @Composable
 fun AdmobBanner(modifier: Modifier) {
+    if (!RemoteConfig.isAdsEnabled()) {
+        return
+    }
     AndroidView(
         modifier = modifier.fillMaxWidth(),
         factory = { context ->

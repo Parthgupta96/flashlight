@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -27,6 +29,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            isDefault = true
         }
     }
     compileOptions {
@@ -64,7 +70,10 @@ dependencies {
     implementation(libs.admob)
 
     implementation(libs.timber)
-
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.remoteconfig)
+    implementation(libs.firebase.crashlytics)
 
 
     testImplementation(libs.junit)

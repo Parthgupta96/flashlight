@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "739625323765",
+    "project_id": "flashlight-24e9c",
+    "storage_bucket": "flashlight-24e9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739625323765:android:f1ac7d75987290db36c9bc",
+        "android_client_info": {
+          "package_name": "com.dailytech.flashlight"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfoQVfhXx8ymtSR2kJbCnYm3FYXPdlwIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,6 +7,7 @@ class AppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        RemoteConfig.initialize()
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }

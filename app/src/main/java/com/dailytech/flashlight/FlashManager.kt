@@ -9,9 +9,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 object FlashManager {
 
+    const val DEFAULT_SELECTED_POSITION = 1
     private const val MORSE_DOT = 300L
     private const val MORSE_OFF = 300L
     private const val MORSE_DASH = 900L
@@ -36,7 +38,7 @@ object FlashManager {
         ThrobClass("8", listOf(50, 50), false),
     )
 
-    var selectedThrobbingItem: ThrobClass = throbbingList[2]
+    var selectedThrobbingItem: ThrobClass = throbbingList[DEFAULT_SELECTED_POSITION]
         set(value) {
             currentThrobbingJob?.cancel()
             field = value
@@ -78,11 +80,11 @@ object FlashManager {
     ) {
         currentThrobbingJob = coroutineScope.launch {
             do {
-                Log.v("parth", "starting")
+                Timber.d("starting")
                 var isOn = true
                 if (selectedThrobbingItem.onOffPeriods.isNotEmpty()) {
                     selectedThrobbingItem.onOffPeriods.forEach {
-                        Log.v("parth", "on: $isOn")
+                        Timber.d("on: $isOn")
                         mCameraManager.setTorchMode(cameraId, isOn)
                         isOn = !isOn
                         delay(it)

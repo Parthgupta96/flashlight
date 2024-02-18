@@ -46,7 +46,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dailytech.flashlight.FlashManager.DEFAULT_SELECTED_POSITION
 import com.dailytech.flashlight.ui.theme.FlashlightTheme
+import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
 
@@ -57,7 +59,6 @@ class MainActivity : ComponentActivity() {
             RootComposeView()
         }
     }
-
 }
 
 
@@ -108,7 +109,7 @@ private fun RootComposeView() {
                         }
                         IconButton(
                             //TODO handle this
-                            onClick = { Log.v("tag", "buttonClicked") }
+                            onClick = { Timber.d("buttonClicked") }
                         ) {
                             Icon(Icons.Rounded.Settings, contentDescription = null)
                         }
@@ -149,11 +150,11 @@ fun MainContainer(modifier: Modifier = Modifier) {
                     )
                 }
             }
-            var sliderPosition by remember { mutableFloatStateOf(1f) }
+            var sliderPosition by remember { mutableFloatStateOf(DEFAULT_SELECTED_POSITION.toFloat()) }
             Slider(
                 value = sliderPosition,
                 onValueChange = {
-                    Log.v("parth", "slider position: $it")
+                    Timber.d("slider position: $it")
                     sliderPosition = it
                     FlashManager.selectedThrobbingItem = FlashManager.throbbingList[it.toInt()]
                     isOn = true
@@ -180,7 +181,6 @@ fun MainContainer(modifier: Modifier = Modifier) {
                 contentDescription = null
             )
         }
-
     }
 
 }

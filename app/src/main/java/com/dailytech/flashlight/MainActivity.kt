@@ -3,7 +3,6 @@ package com.dailytech.flashlight
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -46,15 +45,20 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.dailytech.flashlight.FlashManager.DEFAULT_SELECTED_POSITION
 import com.dailytech.flashlight.ui.theme.FlashlightTheme
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        MobileAds.initialize(this) {}
         setContent {
             RootComposeView()
         }
@@ -133,8 +137,17 @@ fun MainContainer(modifier: Modifier = Modifier) {
             .padding(paddingValues = PaddingValues(bottom = 20.dp))
     ) {
 
+        AdmobBanner(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+        )
         var isOn by remember { mutableStateOf(false) }
         Column {
+            if (true) {//todo add remoteConfig condition
+                AdmobBanner(modifier = Modifier.fillMaxWidth())
+            }
+
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier
@@ -183,4 +196,20 @@ fun MainContainer(modifier: Modifier = Modifier) {
         }
     }
 
+}
+
+@Composable
+fun AdmobBanner(modifier: Modifier) {
+    AndroidView(
+        modifier = modifier.fillMaxWidth(),
+        factory = { context ->
+            // on below line specifying ad view.
+            AdView(context).apply {
+                setAdSize(AdSize.BANNER)
+                adUnitId = context.getString(R.string.bottom_banner)
+                // calling load ad to load our ad.
+                loadAd(AdRequest.Builder().build())
+            }
+        }
+    )
 }
